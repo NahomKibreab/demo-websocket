@@ -15,7 +15,7 @@ const listen = function (server) {
 
     socket.on('chat message', msg => {
       // Send any received message to all 
-      io.emit('chat message', "Received: " + msg);
+      io.emit('chat message', "Sent to all: " + msg);
 
       // Send private message back to the sender
       io.to(socket.id).emit('chat message', 'Private reply');

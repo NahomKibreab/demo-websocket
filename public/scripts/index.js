@@ -1,8 +1,7 @@
 $(function () {
   const socket = setupSocket();
 
-  $("#form").on('submit', function (event) {
-    event.preventDefault();
+  $("#send").on('click', function (event) {
     send(socket, $("input").val());
   });
 });

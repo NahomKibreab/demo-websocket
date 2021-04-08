@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
+const { disconnect } = require('cluster');
 
 const app = express();
 const server = http.Server(app);
@@ -15,8 +16,19 @@ app.get('/', (req, res) => {
 app.use(express.static("public"));
 
 io.on('connection', (socket) => {
+  // socket param the sending socket with unique ID
+  console.log("connected:  ", socket.id);
+
+  socket.on('disconnect', () => {
+    console.log("disconnect: ", socket.id);
+  });
+
   socket.on('chat message', msg => {
-    io.emit('chat message', msg);
+    // Send any received message to all 
+    io.emit('chat message', "Received: " + msg);
+
+    // Send private message to this sender
+    io.to(socket.id).emit('chat message', 'private');
   });
 });
 

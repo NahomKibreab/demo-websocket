@@ -1,4 +1,5 @@
 $(function () {
+  
   const socket = setupSocket();
 
   $("#send").on('click', function (event) {

@@ -7,7 +7,6 @@ const server = http.Server(app);
 const port = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
-  console.log(__dirname);
   res.sendFile(__dirname + '/index.html');
 });
 

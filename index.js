@@ -22,7 +22,7 @@ server.listen(port, () => {
 // Add a web socket connection listener
 function addSocketListeners(io) {
   io.on('connection', (socket) => {
-    // socket param the sending socket with unique ID
+    // This socket param is the sending socke. Has a unique ID
     // We could save the ID's and associate with a specific client
     console.log("connected:  ", socket.id);
 

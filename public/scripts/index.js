@@ -4,6 +4,10 @@ $(function () {
   $("#send").on('click', function (event) {
     send(socket, $("input").val());
   });
+
+  $("#clear").on('click', function (event) {
+    $("#messages").empty();
+  });
 });
 
 const send = function (socket, text) {

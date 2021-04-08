@@ -27,7 +27,7 @@ io.on('connection', (socket) => {
     io.emit('chat message', "Received: " + msg);
 
     // Send private message back to the sender
-    io.to(socket.id).emit('chat message', 'private');
+    io.to(socket.id).emit('chat message', 'Private reply');
   });
 });
 

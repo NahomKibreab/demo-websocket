@@ -6,10 +6,6 @@ const app = express();
 const server = http.Server(app);
 const port = process.env.PORT || 8002;
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
-});
-
 app.use(express.static("public"));
 
 // Handle webSocket connections

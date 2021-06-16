@@ -20,7 +20,7 @@ const send = function (socket, text) {
 
 // Create socket and add listeners
 const setupSocket = function () {
-  const socket = io();
+  const socket = io();    // "io" comes from the included socket.io file
   socket.on('connect', event => {
     console.log("connected");
   });

@@ -25,8 +25,12 @@ const setupSocket = function () {
     console.log("connected");
   });
 
-  socket.on('chat message', function (msg) {
+  // Messages can have different event names
+  socket.on('public message', function (msg) {
     $("#messages").append(`<li>${msg}</li>`);
+
+  }); socket.on('private message', function (msg) {
+    $("#messages").append(`<li>Private: ${msg}</li>`);
   });
 
   return socket;

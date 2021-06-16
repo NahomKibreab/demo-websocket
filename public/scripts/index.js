@@ -1,4 +1,4 @@
-(($) => {    // Wraps everything in an IIFE, including $
+(($) => {    // Wraps everything in an IIFE, also protects `$` operator 
 
   $(function () {
     const socket = setupSocket();

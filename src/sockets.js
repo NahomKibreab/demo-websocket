@@ -14,10 +14,11 @@ const listen = function (httpServer) {
     });
 
     socket.on('chat message', msg => {
-      // Send any received message to all 
+
+      // Broadcast received message to all 
       server.emit('public message', "Sent to all: " + msg);
 
-      // Send private message back to the sender
+      // Send private message back to the sender (by socket id)
       server.to(socket.id).emit('private message', 'Hello: ' + msg);
     });
   });

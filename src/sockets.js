@@ -23,7 +23,7 @@ const listen = function (httpServer) {
       // Send private message back to the sender (by socket id)
       server.to(socket.id).emit('private message', 'to() ' + msg);
 
-      // Send generic websocket "message" to this socket only (no custom name)
+      // Send generic "message" to this socket only (no custom name)
       socket.send("send() " + msg);
     });
   });

@@ -1,14 +1,13 @@
-
 body {
-  background-color: #EEE;
+  background-color: #eee;
   margin: 1em;
 }
 
- h1 {
-   color: #244751;
- }
-  
- h4:empty:before {
+h1 {
+  color: #244751;
+}
+
+h4:empty:before {
   content: "\200b"; /* unicode zero width space character */
 }
 
@@ -21,14 +20,18 @@ li {
   padding: 5px;
   margin: 2px;
   width: 26em;
-  background-color: #DDD;
+  background-color: #ddd;
+}
+
+li.private {
+  color: green;
 }
 
 li a {
   color: grey;
 }
 
-li:hover{
+li:hover {
   background-color: darkolivegreen;
   color: white;
 }

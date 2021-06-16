@@ -29,10 +29,10 @@ const setupSocket = function () {
 
   // Custom socket.io Messages can have different event names
   socket.on('public message', function (msg) {
-    $("#messages").append(`<li>${msg}</li>`);
+    $("#messages").prepend(`<li>Broadcast: ${msg}</li>`);
 
   }); socket.on('private message', function (msg) {
-    $("#messages").append(`<li>Private: ${msg}</li>`);
+    $("#messages").prepend(`<li class="private">Private: ${msg}</li>`);
   });
 
   return socket;

@@ -13,6 +13,8 @@ const listen = function (httpServer) {
       console.log("disconnect: ", socket.id);
     });
 
+
+    // Do something whenever a "chat message" message is received
     socket.on('chat message', msg => {
 
       // Broadcast received message to all 

@@ -20,14 +20,14 @@ const send = function (socket, text) {
 
 // Create socket and add listeners
 const setupSocket = function () {
-  
+
   // "io" comes from the included socket.io file (index.html)
   const socket = io();
   socket.on('connect', event => {
     console.log("connected");
   });
 
-  // Messages can have different event names
+  // Custom socket.io Messages can have different event names
   socket.on('public message', function (msg) {
     $("#messages").append(`<li>${msg}</li>`);
 

@@ -23,7 +23,7 @@ li {
   background-color: #ddd;
 }
 
-li.private {
+li.private, li.send {
   color: green;
 }
 

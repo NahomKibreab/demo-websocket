@@ -34,12 +34,12 @@ const setupSocket = function () {
 
   // We can handle messages by name 
   socket.on('private message', function (msg) {
-    $("#messages").prepend(`<li class="private">Private: ${msg}</li>`);
+    $("#messages").prepend(`<li class="private">Received: ${msg}</li>`);
   });
 
   // We can also handle messages sent with no message name
   socket.on('message', function (msg) {
-    $("#messages").prepend(`<li class="private">Received: ${msg}</li>`);
+    $("#messages").prepend(`<li class="send">Received: ${msg}</li>`);
   });
 
   return socket;

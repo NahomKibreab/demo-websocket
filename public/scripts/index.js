@@ -37,5 +37,10 @@ const setupSocket = function () {
     $("#messages").prepend(`<li class="private">Private: ${msg}</li>`);
   });
 
+  // We can also handle messages sent with the regular websockets socket.send() (no message name)
+  socket.on('message', function (msg) {
+    $("#messages").prepend(`<li class="private">Received: ${msg}</li>`);
+  });
+
   return socket;
 };

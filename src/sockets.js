@@ -18,10 +18,13 @@ const listen = function (httpServer) {
     socket.on('chat message', msg => {
 
       // Broadcast received message to all 
-      server.emit('public message', msg);
+      server.emit('public message', 'emit() ' + msg);
 
       // Send private message back to the sender (by socket id)
-      server.to(socket.id).emit('private message', 'Hello - ' + msg);
+      server.to(socket.id).emit('private message', 'to() ' + msg);
+
+      // Send generic websocket "message" to this socket only (no custom name)
+      socket.send("send() " + msg);
     });
   });
 

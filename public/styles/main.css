@@ -11,7 +11,7 @@ h4:empty:before {
   content: "\200b"; /* unicode zero width space character */
 }
 
-#input{
+#to{
   margin-top: 1em;
 }
 
@@ -29,6 +29,10 @@ li {
 
 li.private, li.send {
   color: green;
+}
+
+li.ack {
+  color: blue;
 }
 
 li a {

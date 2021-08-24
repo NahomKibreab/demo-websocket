@@ -31,14 +31,14 @@ const start = function (httpServer) {
       console.log("register: ", name);
 
       if (users[name]) {
-        server.to(socket.id).emit('private', 'You are already registered!');
+        server.to(socket.id).emit('ack', 'You are already registered!');
         return;
       }
 
       // Add user
       users[name] = socket.id;
       console.log(users);
-      server.to(socket.id).emit('private', 'You are now registered!');
+      server.to(socket.id).emit('ack', 'You are now registered!');
     });
 
     // Do something whenever a "chat" event is received
@@ -53,14 +53,14 @@ const start = function (httpServer) {
 
       const destSocket = users[msg.to];
       if (!destSocket) {
-        server.to(socket.id).emit('private', msg.to + ' is not online');
+        server.to(socket.id).emit('ack', msg.to + ' is not online');
         return;
       }
 
       server.to(destSocket).emit('private', msg.from + ' says: ' + msg.text);
 
       // Send private message back to the sender (by socket id)
-      server.to(socket.id).emit('private', 'you sent: ' + msg.text);
+      server.to(socket.id).emit('ack', 'you sent: ' + msg.text);
 
       // Alternative: Send generic "message" to this socket only (no  event nanme)
       // socket.send("send() " + msg.text);

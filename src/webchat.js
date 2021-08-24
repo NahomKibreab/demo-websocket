@@ -29,15 +29,9 @@ const start = function (httpServer) {
     socket.on('register', name => {
       console.log("register: ", name);
 
-      if (users[name]) {
-        server.to(socket.id).emit('ack', 'You are already registered!');
-        return;
-      }
-
       // Add user
       users[name] = socket.id;
       console.log(users);
-      server.to(socket.id).emit('ack', 'You are now registered!');
     });
 
   });

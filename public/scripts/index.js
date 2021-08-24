@@ -67,8 +67,7 @@
       $("#messages").prepend(`<li class="send">${msg}</li>`);
     });
 
-
     return socket;
   };
-  
+
 })(jQuery);

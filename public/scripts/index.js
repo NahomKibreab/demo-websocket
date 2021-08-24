@@ -23,7 +23,7 @@
 
   // Send chat message to the server
   const send = function (socket, text, from, to) {
-    console.log(from, to, text);
+    // console.log(from, to, text);
     if (socket && from && text) {
       socket.emit('chat', { text, from, to });
     }

@@ -10,15 +10,6 @@
 
   });
 
-
-  // Send a register message to the server
-  const register = function (socket, name) {
-    console.log("register");
-    if (socket && name) {
-      socket.emit('register', name);    // Send a 'register' event
-    }
-  };
-
   // Create socket and add listeners
   const setupSocket = function () {
 
@@ -30,4 +21,13 @@
 
     return socket;
   };
+
+  // Send a register message to the server
+  const register = function (socket, name) {
+    console.log("register");
+    if (socket && name) {
+      socket.emit('register', name);    // Send a 'register' event
+    }
+  };
+
 })(jQuery);

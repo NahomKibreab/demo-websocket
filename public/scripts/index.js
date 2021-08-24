@@ -4,10 +4,7 @@
     const socket = setupSocket();;
 
     $("#send").on('click', function (event) {
-      const to = $("#to").val();
-      const from = $("#name").val();
-      const message = $("#input").val();
-      send(socket, message, from, to);
+      send(socket);
     });
 
     $("#clear").on('click', function (event) {
@@ -22,7 +19,11 @@
   });
 
   // Send chat message to the server
-  const send = function (socket, text, from, to) {
+  const send = function (socket) {
+    const to = $("#to").val();
+    const from = $("#name").val();
+    const text = $("#input").val();
+
     // console.log(from, to, text);
     if (socket && from && text) {
       socket.emit('chat', { text, from, to });

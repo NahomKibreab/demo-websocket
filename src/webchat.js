@@ -1,7 +1,5 @@
 const socketio = require('socket.io');
 
-const users = {};
-
 // Web socket connection listener
 const start = function (httpServer) {
 
@@ -9,7 +7,7 @@ const start = function (httpServer) {
 
   server.on('connection', (socket) => {
     // This socket param is the sending socket. Has a unique ID (socket.id)
-    // We can save the ID's and associate with a specific used
+    // We can use this ID and associate with a specific used
     console.log("connected:  ", socket.id);
 
     socket.on('disconnect', () => {

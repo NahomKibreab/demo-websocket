@@ -3,7 +3,8 @@ const socketio = require('socket.io');
 const users = {};
 
 // Web socket connection listener
-const listen = function (httpServer) {
+const start = function (httpServer) {
+  
   const server = socketio(httpServer);
 
   server.on('connection', (socket) => {
@@ -68,4 +69,4 @@ const listen = function (httpServer) {
 
 };
 
-module.exports = { listen };
+module.exports = { start };

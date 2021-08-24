@@ -9,7 +9,7 @@ const port = process.env.PORT || 8002;
 app.use(express.static("public"));
 
 // Handle webSocket connections
-sockets.listen(httpServer);
+sockets.start(httpServer);
 
 httpServer.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);

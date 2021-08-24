@@ -1,21 +1,39 @@
 (($) => {    // Wraps everything in an IIFE, also protects `$` operator 
 
   $(function () {
-    const socket = setupSocket();
+    const socket = setupSocket();;
 
     $("#send").on('click', function (event) {
-      send(socket, $("input").val());
+      const to = $("#to").val();
+      const from = $("#name").val();
+      const message = $("#input").val();
+      send(socket, message, from, to);
     });
 
     $("#clear").on('click', function (event) {
       $("#messages").empty();
     });
+
+    $("#register").on('click', function (event) {
+      const name = $("#name").val();
+      register(socket, name);
+    });
+
   });
 
   // Send message to the server
-  const send = function (socket, text) {
-    if (text) {
-      socket.emit('chat message', text);
+  const send = function (socket, text, from, to) {
+    console.log(from, to, text);
+    if (socket && from) {
+      socket.emit('chat', { text, from, to });
+    }
+  };
+
+  // Send message to the server
+  const register = function (socket, name) {
+    console.log("register");
+    if (socket && name) {
+      socket.emit('register', name);    // Send a 'register' event
     }
   };
 
@@ -26,21 +44,24 @@
     const socket = io();
     socket.on('connect', event => {
       console.log("connected");
+
+      // Send empty message with our name when we connect
+      send(socket, { from: 'test' });
     });
 
     // Custom socket.io Messages can have different event names
-    socket.on('public message', function (msg) {
+    socket.on('public', function (msg) {
       $("#messages").prepend(`<li>Broadcast: ${msg}</li>`);
     });
 
     // We can handle messages by name 
-    socket.on('private message', function (msg) {
-      $("#messages").prepend(`<li class="private">Received: ${msg}</li>`);
+    socket.on('private', function (msg) {
+      $("#messages").prepend(`<li class="private">Private: ${msg}</li>`);
     });
 
     // We can also handle messages sent with no message name
     socket.on('message', function (msg) {
-      $("#messages").prepend(`<li class="send">Received: ${msg}</li>`);
+      $("#messages").prepend(`<li class="send">Generic: ${msg}</li>`);
     });
 
     return socket;

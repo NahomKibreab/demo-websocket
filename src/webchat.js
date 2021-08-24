@@ -51,7 +51,7 @@ const start = function (httpServer) {
         return;
       }
 
-      // Find socket id for this user
+      // Find socket id for this user, if exists
       const destSocket = users[msg.to];
       if (!destSocket) {
         server.to(socket.id).emit('ack', msg.to + ' is not online');

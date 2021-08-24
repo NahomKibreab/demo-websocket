@@ -60,7 +60,7 @@ const start = function (httpServer) {
 
       server.to(destSocket).emit('private', msg.from + ' says: ' + msg.text);
 
-      // Send private message back to the sender (by socket id)
+      // Send confirmation message back to the sender (by socket id)
       server.to(socket.id).emit('ack', 'you sent: ' + msg.text);
 
       // Alternative: Send generic "message" to this socket only (no  event nanme)

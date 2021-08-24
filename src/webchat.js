@@ -63,8 +63,8 @@ const start = function (httpServer) {
       // Send confirmation message back to the sender (by socket id)
       server.to(socket.id).emit('ack', 'you sent: ' + msg.text);
 
-      // Alternative: Send generic "message" to this socket only (no  event nanme)
-      // socket.send("send() " + msg.text);
+      // Alternative: Send generic "message" event to this socket only (no event name provided)
+      // socket.send("msg.text);
     });
   });
 

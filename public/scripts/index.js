@@ -21,15 +21,15 @@
 
   });
 
-  // Send message to the server
+  // Send chat message to the server
   const send = function (socket, text, from, to) {
     console.log(from, to, text);
-    if (socket && from) {
+    if (socket && from && text) {
       socket.emit('chat', { text, from, to });
     }
   };
 
-  // Send message to the server
+  // Send a register message to the server
   const register = function (socket, name) {
     console.log("register");
     if (socket && name) {

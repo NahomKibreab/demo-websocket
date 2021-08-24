@@ -1,6 +1,6 @@
 const http = require('http');
 const express = require('express');
-const sockets = require('./sockets');
+const sockets = require('./webchat');
 
 const app = express();
 const httpServer = http.Server(app);

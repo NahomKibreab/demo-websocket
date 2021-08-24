@@ -29,7 +29,7 @@
   };
 
   // Send a register message to the server
-  const register = function (socket, name) {
+  const register = function (socket) {
     console.log("register");
     const name = $("#name").val();
     if (socket && name) {

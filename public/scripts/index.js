@@ -45,13 +45,19 @@
     socket.on('connect', event => {
       console.log("connected");
     });
-
+    
     // Custom socket.io Messages can have different event names
+    // handle "ack" events
+    socket.on('ack', function (msg) {
+      $("#messages").prepend(`<li class="ack">>> ${msg}</li>`);
+    });
+    
+    // handle "public" (broadcast) events
     socket.on('public', function (msg) {
       $("#messages").prepend(`<li>Broadcast: ${msg}</li>`);
     });
 
-    // We can handle messages by name 
+       // handle "private" events
     socket.on('private', function (msg) {
       $("#messages").prepend(`<li class="private">${msg}</li>`);
     });
@@ -61,10 +67,6 @@
       $("#messages").prepend(`<li class="send">${msg}</li>`);
     });
 
-    // We can also handle messages sent with no message name
-    socket.on('ack', function (msg) {
-      $("#messages").prepend(`<li class="ack">>> ${msg}</li>`);
-    });
 
     return socket;
   };

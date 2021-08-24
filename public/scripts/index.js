@@ -44,9 +44,6 @@
     const socket = io();
     socket.on('connect', event => {
       console.log("connected");
-
-      // Send empty message with our name when we connect
-      send(socket, { from: 'test' });
     });
 
     // Custom socket.io Messages can have different event names

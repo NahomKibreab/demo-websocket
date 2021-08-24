@@ -4,10 +4,8 @@
     const socket = setupSocket();;
 
     $("#send").on('click', function (event) {
-      const to = $("#to").val();
-      const from = $("#name").val();
-      const message = $("#input").val();
-      send(socket, message, from, to);
+
+      send(socket);
     });
 
     $("#clear").on('click', function (event) {
@@ -15,14 +13,16 @@
     });
 
     $("#register").on('click', function (event) {
-      const name = $("#name").val();
-      register(socket, name);
+      register(socket);
     });
 
   });
 
   // Send chat message to the server
-  const send = function (socket, text, from, to) {
+  const send = function (socket) {
+    const to = $("#to").val();
+    const from = $("#name").val();
+    const text = $("#message").val();
     // console.log(from, to, text);
     if (socket && from && text) {
       socket.emit('chat', { text, from, to });
@@ -32,6 +32,7 @@
   // Send a register message to the server
   const register = function (socket, name) {
     console.log("register");
+    const name = $("#name").val();
     if (socket && name) {
       socket.emit('register', name);    // Send a 'register' event
     }

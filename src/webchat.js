@@ -23,7 +23,7 @@ const start = function (httpServer) {
         }
       }
 
-      console.log(users);
+      // console.log(users);
     });
 
     // Handle a "register" message

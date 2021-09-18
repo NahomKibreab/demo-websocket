@@ -62,7 +62,7 @@
       $("#messages").prepend(`<li class="private">${msg}</li>`);
     });
 
-    // We can also handle messages sent with no message name
+    // We can also handle messages sent with no event name (send as message)
     socket.on('message', function(msg) {
       $("#messages").prepend(`<li class="send">${msg}</li>`);
     });

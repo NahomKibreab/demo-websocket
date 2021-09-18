@@ -3,7 +3,7 @@ const socketio = require('socket.io');
 const users = {};
 
 // Web socket connection listener
-const start = function (httpServer) {
+const start = function(httpServer) {
 
   const server = socketio(httpServer);
 
@@ -11,6 +11,7 @@ const start = function (httpServer) {
     // This socket param is the sending socket. Has a unique ID (socket.id)
     // We can save the ID's and associate with a specific used
     console.log("connected:  ", socket.id);
+    server.to(socket.id).emit('ack', `Connected ( ${socket.id} )`);
 
     socket.on('disconnect', () => {
       console.log("disconnect: ", socket.id);
@@ -22,7 +23,6 @@ const start = function (httpServer) {
           delete users[user];
         }
       }
-
       // console.log(users);
     });
 
@@ -38,7 +38,7 @@ const start = function (httpServer) {
       // Add user
       users[name] = socket.id;
       console.log(users);
-      server.to(socket.id).emit('ack', 'You are now registered!');
+      server.to(socket.id).emit('ack', `Registered ( ${name} )`);
     });
 
     // Do something whenever a "chat" event is received

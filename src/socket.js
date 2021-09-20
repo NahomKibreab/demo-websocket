@@ -4,6 +4,7 @@ let connected = 0;
 
 const sendStatus = function(server) {
   const status = { connected };
+  console.log(status);
   server.emit('status', status);
 };
 
@@ -18,10 +19,13 @@ const start = function(httpServer) {
     console.log("connected:  ", socket.id);
 
     server.to(socket.id).emit('notify', `Connected ( ${socket.id} )`);
+    connected++;
     sendStatus(server);
 
     socket.on('disconnect', () => {
       console.log("disconnect: ", socket.id);
+      connected--;
+      sendStatus(server);
     });
   });
 

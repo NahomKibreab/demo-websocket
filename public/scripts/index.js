@@ -22,6 +22,12 @@
       $(".notify").html(msg);
     });
 
+    // handle "status" events
+    socket.on('status', function(msg) {
+      console.log(msg);
+      $(".connected").html(msg.connected);
+    });
+
     return socket;
   };
 })(jQuery);

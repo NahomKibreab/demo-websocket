@@ -11,8 +11,12 @@
       $("#messages").empty();
     });
 
-    $("#register").on('click', function(event) {
-      register(socket);
+    $("#active").on('click', function(event) {
+      active(socket);
+    });
+
+    $("#offline").on('click', function(event) {
+      offline(socket);
     });
 
   });
@@ -29,12 +33,17 @@
   };
 
   // Send a register message to the server
-  const register = function(socket) {
-    console.log("register");
+  const active = function(socket) {
     const name = $("#name").val();
     if (socket && name) {
-      socket.emit('register', name);    // Send a 'register' event
+      socket.emit('active', name);    // Send an 'active' event
     }
+  };
+
+  // Send a register message to the server
+  const offline = function(socket) {
+    console.log("offline");
+    socket.emit('offline', "");    // Send an 'offline' event
   };
 
   // Create socket and add listeners
@@ -49,7 +58,7 @@
     // Custom socket.io Messages can have different event names
     // handle "ack" events
     socket.on('ack', function(msg) {
-      $("#messages").prepend(`<li class="ack">>> ${msg}</li>`);
+      $(".message").html(msg);
     });
 
     // handle "public" (broadcast) events
@@ -60,6 +69,13 @@
     // handle "private" events
     socket.on('private', function(msg) {
       $("#messages").prepend(`<li class="private">${msg}</li>`);
+    });
+
+    // handle "status" events
+    socket.on('status', function(msg) {
+      console.log(msg);
+      $(".connected").html(msg.connected);
+      $(".registered").html(msg.registered);
     });
 
     // We can also handle messages sent with no event name (send as message)

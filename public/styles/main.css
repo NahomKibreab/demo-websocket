@@ -11,7 +11,7 @@ h4:empty:before {
   content: "\200b"; /* unicode zero width space character */
 }
 
-#to{
+#to {
   margin-top: 1em;
 }
 
@@ -27,7 +27,8 @@ li {
   background-color: #ddd;
 }
 
-li.private, li.send {
+li.private,
+li.send {
   color: green;
 }
 
@@ -46,4 +47,8 @@ li:hover {
 
 li:hover a {
   color: white;
+}
+
+.message {
+  color: green;
 }

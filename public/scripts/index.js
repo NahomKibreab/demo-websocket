@@ -1,12 +1,12 @@
 (($) => {    // Wraps everything in an IIFE, also protects `$` operator 
 
-  $(function () {
+  $(function() {
     const socket = setupSocket();
 
   });
 
   // Create socket and add listeners
-  const setupSocket = function () {
+  const setupSocket = function() {
 
     // "io" comes from the included socket.io file (index.html)
     const socket = io();

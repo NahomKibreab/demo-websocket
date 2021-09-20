@@ -1,5 +1,12 @@
 const socketio = require('socket.io');
 
+let connected = 0;
+
+const sendStatus = function(server) {
+  const status = { connected };
+  server.emit('status', status);
+};
+
 // Web socket connection listener
 const start = function(httpServer) {
 
@@ -11,6 +18,7 @@ const start = function(httpServer) {
     console.log("connected:  ", socket.id);
 
     server.to(socket.id).emit('notify', `Connected ( ${socket.id} )`);
+    sendStatus(server);
 
     socket.on('disconnect', () => {
       console.log("disconnect: ", socket.id);

@@ -38,7 +38,7 @@ const start = function(httpServer) {
     // This socket param is the sending socket. Has a unique ID (socket.id)
     // We can save the ID's and associate with a specific used
     console.log("connected:  ", socket.id);
-    server.to(socket.id).emit('ack', `Connected ( ${socket.id} )`);
+    server.to(socket.id).emit('status', `Connected ( ${socket.id} )`);
     sendStatus(server);
 
     socket.on('disconnect', () => {
@@ -57,14 +57,14 @@ const start = function(httpServer) {
       console.log("active: ", name);
 
       if (users[name]) {
-        server.to(socket.id).emit('ack', 'You are already active!');
+        server.to(socket.id).emit('status', 'You are already active!');
         return;
       }
 
       // Add user
       users[name] = socket.id;
       console.log(users);
-      server.to(socket.id).emit('ack', `Registered ( ${name} )`);
+      server.to(socket.id).emit('status', `Registered ( ${name} )`);
       sendStatus(server);
     });
 
@@ -75,13 +75,13 @@ const start = function(httpServer) {
       // Find user
       const user = getUser(socket.id);
       if (!user) {
-        server.to(socket.id).emit('ack', `Offline ( ${name} )`);
+        server.to(socket.id).emit('status', `Offline ( ${name} )`);
         return;
       }
 
       delete users[user];
       console.log(users);
-      server.to(socket.id).emit('ack', `Offline ( ${user} )`);
+      server.to(socket.id).emit('status', `Offline ( ${user} )`);
       sendStatus(server);
     });
 
@@ -92,21 +92,21 @@ const start = function(httpServer) {
       // Broadcast received message to all if no "to" received
       if (!msg.to) {
         server.emit('public', msg.text);
-        server.to(socket.id).emit('ack', 'Broadcast: ' + msg.text);
+        server.to(socket.id).emit('status', 'Broadcast: ' + msg.text);
         return;
       }
 
       // Find socket id for this user, if exists
       const destSocket = users[msg.to];
       if (!destSocket) {
-        server.to(socket.id).emit('ack', msg.to + ' is not active');
+        server.to(socket.id).emit('status', msg.to + ' is not active');
         return;
       }
 
       server.to(destSocket).emit('private', msg.from + ' says: ' + msg.text);
 
       // Send confirmation message back to the sender (by socket id)
-      server.to(socket.id).emit('ack', 'Sent: ' + msg.text);
+      server.to(socket.id).emit('status', 'Sent: ' + msg.text);
 
       // Alternative: Send generic "message" event to this socket only (no event name provided)
       // socket.send("msg.text);

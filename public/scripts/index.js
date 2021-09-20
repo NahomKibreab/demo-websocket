@@ -56,8 +56,8 @@
     });
 
     // Custom socket.io Messages can have different event names
-    // handle "ack" events (from server to us)
-    socket.on('ack', function(msg) {
+    // handle "status" events (from server to us)
+    socket.on('status', function(msg) {
       $(".message").html(msg);
     });
 

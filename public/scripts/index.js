@@ -1,5 +1,5 @@
 // Wraps everything in an IIFE, also protects `$` operator 
-($ => {  
+($ => {
 
   $(function() {
     const socket = setupSocket();
@@ -13,6 +13,13 @@
     const socket = io();
     socket.on('connect', event => {
       console.log("connected");
+    });
+
+
+    // Messages can have different event names
+    // handle "notify" events (from server to us)
+    socket.on('notify', function(msg) {
+      $(".notify").html(msg);
     });
 
     return socket;

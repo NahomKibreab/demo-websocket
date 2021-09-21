@@ -1,6 +1,6 @@
 # Web Sockets
 
-[ ] What is websockets
+[ ] What is WebSockets
 [ ] WebSockets vs http protocol
 [ ] Why WebSockets
 [ ] WebSocket Client & Server

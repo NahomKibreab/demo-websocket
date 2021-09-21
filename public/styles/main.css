@@ -53,4 +53,5 @@ li:hover a {
 .notify {
   color: green;
   font-family: monospace;
+  padding-bottom: 0.5em;
 }

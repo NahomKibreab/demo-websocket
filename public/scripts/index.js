@@ -25,12 +25,6 @@
 
   });
 
-  // Send a register message to the server
-  const offline = function(socket) {
-    console.log("offline");
-    socket.emit('offline', "");    // Send an 'offline' event
-  };
-
   // Create socket and add listeners
   const setupSocket = function() {
 

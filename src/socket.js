@@ -66,8 +66,7 @@ const start = function(httpServer) {
       // Find user
       const user = getUser(socket.id);
       if (!user) {
-        server.to(socket.id).emit('notify', `Not Registered`);
-        return;
+        return server.to(socket.id).emit('notify', `Not Registered`);
       }
 
       delete users[user];

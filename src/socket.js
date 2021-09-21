@@ -48,15 +48,22 @@ const start = function(httpServer) {
     socket.on('register', name => {
       console.log("register: ", name);
 
+      const user = getUser(socket.id);
+      if (user) {
+        return server.to(socket.id).emit('notify', `You are already registered!`);
+      }
+
       if (users[name]) {
-        return server.to(socket.id).emit('notify', 'You are already registered!');
+        return server.to(socket.id).emit('notify', 'This name is already registered!');
       }
 
       // Add user
       users[name] = socket.id;
       console.log(users);
-      server.to(socket.id).emit('notify', `Registered: ( ${name} )`);
+      server.to(socket.id).emit('notify', `Registered as: ${name}`);
       sendStatus(server);
+
+      console.log(users);
     });
 
     // Handle an "offine" message (only gets socket.id)
@@ -77,7 +84,6 @@ const start = function(httpServer) {
 
 
   });
-
 
 };
 

@@ -19,7 +19,7 @@ const start = function(httpServer) {
     // We can use this ID and associate with a specific used
     console.log("connected:  ", socket.id);
 
-    server.to(socket.id).emit('notify', `Connected ( ${socket.id} )`);
+    server.to(socket.id).emit('notify', `Connected [ ${socket.id} ]`);
     connected++;
     sendStatus();
 

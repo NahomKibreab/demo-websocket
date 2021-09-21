@@ -4,6 +4,7 @@
   $(function() {
     const socket = setupSocket();
 
+    // Not really needed since browser will disconnect anyway
     $(window).unload(function() {
       socket.disconnect();
     });

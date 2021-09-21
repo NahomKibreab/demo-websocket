@@ -85,9 +85,13 @@ const start = function(httpServer) {
 
     // Do something whenever a "chat" event is received
     socket.on('chat', msg => {
-      console.log("chat: ", msg);
-
+      
       const from = getUser(socket.id);
+      console.log("chat: ", from, msg);
+
+      if (!from) {
+        return server.to(socket.id).emit('notify', `Not Registered`);
+      }
 
       // Broadcast received message to all if no "to" received
       if (!msg.to) {

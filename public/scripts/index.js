@@ -4,7 +4,7 @@
   $(function() {
     const socket = setupSocket();
 
-    $("#register").on('click', function(event) {
+    $("#register").on('click', function() {
       const name = $("#name").val();
       register(socket, name);
     });
@@ -31,6 +31,7 @@
     socket.on('status', function(msg) {
       console.log(msg);
       $(".connected").html(msg.connected);
+      $(".active").html(msg.active);
     });
 
     return socket;
@@ -38,7 +39,7 @@
 
   // Send a register message to the server
   const register = function(socket, name) {
-    console.log("register");
+    console.log("register", name);
     if (socket && name) {
       socket.emit('register', name);
     }

@@ -9,16 +9,6 @@ const sendStatus = function(server) {
   server.emit('status', status);
 };
 
-const offline = function(id) {
-  // unregister this user
-  for (const user in users) {
-    if (users[user] === socket.id) {
-      console.log("offline: ", user);
-      delete users[user];
-    }
-  }
-};
-
 const getUser = function(id) {
   for (const user in users) {
     if (users[user] === id) {

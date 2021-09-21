@@ -4,10 +4,11 @@
   $(function() {
     const socket = setupSocket();
 
-    // Not really needed since browser will disconnect anyway
-    $(window).unload(function() {
-      socket.disconnect();
+    $("#register").on('click', function(event) {
+      const name = $("#name").val();
+      register(socket, name);
     });
+
   });
 
   // Create socket and add listeners
@@ -34,4 +35,13 @@
 
     return socket;
   };
+
+  // Send a register message to the server
+  const register = function(socket, name) {
+    console.log("register");
+    if (socket && name) {
+      socket.emit('register', name);
+    }
+  };
+
 })(jQuery);

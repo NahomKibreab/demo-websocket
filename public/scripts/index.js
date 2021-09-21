@@ -1,7 +1,18 @@
-(($) => {    // Wraps everything in an IIFE, also protects `$` operator 
+// Wraps everything in an IIFE, also protects `$` operator 
+($ => {
 
   $(function() {
-    const socket = setupSocket();;
+    const socket = setupSocket();
+
+    $("#active").on('click', function() {
+      const name = $("#name").val();
+      register(socket, name);
+    });
+
+    $("#offline").on('click', function() {
+      const name = $("#name").val();
+      offline(socket);
+    });
 
     $("#send").on('click', function(event) {
       send(socket);
@@ -11,34 +22,8 @@
       $("#messages").empty();
     });
 
-    $("#active").on('click', function(event) {
-      active(socket);
-    });
-
-    $("#offline").on('click', function(event) {
-      offline(socket);
-    });
 
   });
-
-  // Send chat message to the server
-  const send = function(socket) {
-    const to = $("#to").val();
-    const from = $("#name").val();
-    const text = $("#message").val();
-    // console.log(from, to, text);
-    if (socket && from && text) {
-      socket.emit('chat', { text, from, to });
-    }
-  };
-
-  // Send a register message to the server
-  const active = function(socket) {
-    const name = $("#name").val();
-    if (socket && name) {
-      socket.emit('active', name);    // Send an 'active' event
-    }
-  };
 
   // Send a register message to the server
   const offline = function(socket) {
@@ -55,35 +40,59 @@
       console.log("connected");
     });
 
-    // Custom socket.io Messages can have different event names
-    // handle "status" events (from server to us)
-    socket.on('status', function(msg) {
-      $(".message").html(msg);
-    });
 
-    // handle "public" (broadcast) events
-    socket.on('public', function(msg) {
-      $("#messages").prepend(`<li>Broadcast: ${msg}</li>`);
-    });
-
-    // handle "private" events
-    socket.on('private', function(msg) {
-      $("#messages").prepend(`<li class="private">${msg}</li>`);
+    // Messages can have different event names
+    // handle "notify" events (from server to us)
+    socket.on('notify', function(msg) {
+      $(".notify").html(msg);
     });
 
     // handle "status" events
     socket.on('status', function(msg) {
       console.log(msg);
       $(".connected").html(msg.connected);
-      $(".registered").html(msg.registered);
+      $(".active").html(msg.active);
     });
 
-    // We can also handle messages sent with no event name (send as message)
-    socket.on('message', function(msg) {
-      $("#messages").prepend(`<li class="send">${msg}</li>`);
+    // handle "message" events
+    socket.on('private', function(msg) {
+      console.log(msg);
+      $("#messages").prepend(`<li class="private">${msg.from} says: ${msg.text}</li>`);
+    });
+
+    // handle "message" events
+    socket.on('public', function(msg) {
+      console.log(msg);
+      $("#messages").prepend(`<li class="public">${msg.from} says: ${msg.text}</li>`);
     });
 
     return socket;
+  };
+
+  // Send a register event to the server
+  const register = function(socket, name) {
+    console.log("register", name);
+    if (socket && name) {
+      socket.emit('register', name);
+    }
+  };
+
+  // Send an offline event to the server
+  const offline = function(socket) {
+    console.log("offline");
+    if (socket) {
+      socket.emit('offline', null);
+    }
+  };
+
+  // Send chat message to the server
+  const send = function(socket) {
+    const to = $("#to").val();
+    const text = $("#message").val();
+    console.log("send:", to, text);
+    if (socket && text) {
+      socket.emit('chat', { text, to });
+    }
   };
 
 })(jQuery);

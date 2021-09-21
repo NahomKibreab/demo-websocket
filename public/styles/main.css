@@ -1,4 +1,5 @@
 body {
+  font-family: Arial;
   background-color: #eee;
   margin: 1em;
 }
@@ -49,6 +50,7 @@ li:hover a {
   color: white;
 }
 
-.message {
+.notify {
   color: green;
+  font-family: monospace;
 }

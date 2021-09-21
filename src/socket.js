@@ -83,6 +83,37 @@ const start = function(httpServer) {
     });
 
 
+    // Do something whenever a "chat" event is received
+    socket.on('chat', msg => {
+      console.log("chat: ", msg);
+
+      const from = getUser(socket.id);
+
+      // Broadcast received message to all if no "to" received
+      if (!msg.to) {
+        server.emit('public', { ...msg, from });
+        server.to(socket.id).emit('notify', `Sent: ${msg.text}`);
+        return;
+      }
+
+      // Find socket id for this user, if exists
+      const destSocket = users[msg.to];
+      if (!destSocket) {
+        server.to(socket.id).emit('status', msg.to + ' is not active');
+        return;
+      }
+
+      server.to(destSocket).emit('private', { ...msg, from });
+
+      // Send confirmation message back to the sender (by socket id)
+      server.to(socket.id).emit('notify', `Sent to ${msg.to}: ${msg.text}`);
+
+      // Alternative: Send generic "message" event to this socket only (no event name provided)
+      // socket.send("msg.text);
+    });
+
+
+
   });
 
 };

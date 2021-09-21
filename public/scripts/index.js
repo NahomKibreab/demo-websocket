@@ -14,6 +14,15 @@
       offline(socket);
     });
 
+    $("#send").on('click', function(event) {
+      send(socket);
+    });
+
+    $("#clear").on('click', function(event) {
+      $("#messages").empty();
+    });
+
+
   });
 
   // Create socket and add listeners
@@ -39,10 +48,22 @@
       $(".active").html(msg.active);
     });
 
+    // handle "message" events
+    socket.on('private', function(msg) {
+      console.log(msg);
+      $("#messages").prepend(`<li class="private">${msg.from} says: ${msg.text}</li>`);
+    });
+
+    // handle "message" events
+    socket.on('public', function(msg) {
+      console.log(msg);
+      $("#messages").prepend(`<li class="public">${msg.from} says: ${msg.text}</li>`);
+    });
+
     return socket;
   };
 
-  // Send a register message to the server
+  // Send a register event to the server
   const register = function(socket, name) {
     console.log("register", name);
     if (socket && name) {
@@ -50,11 +71,21 @@
     }
   };
 
-  // Send an offline message to the server
+  // Send an offline event to the server
   const offline = function(socket) {
     console.log("offline");
     if (socket) {
       socket.emit('offline', null);
+    }
+  };
+
+  // Send chat message to the server
+  const send = function(socket) {
+    const to = $("#to").val();
+    const text = $("#message").val();
+    console.log("send:", to, text);
+    if (socket && text) {
+      socket.emit('chat', { text, to });
     }
   };
 

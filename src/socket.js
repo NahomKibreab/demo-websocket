@@ -1,7 +1,7 @@
 const socketio = require('socket.io');
 
 // Web socket connection listener
-const start = function (httpServer) {
+const listen = function (httpServer) {
 
   const server = socketio(httpServer);
 
@@ -17,4 +17,4 @@ const start = function (httpServer) {
 
 };
 
-module.exports = { start };
+module.exports = { listen };

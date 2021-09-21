@@ -11,4 +11,4 @@ const httpServer = app.listen(port, () => {
 });
 
 // Handle webSocket connections
-socket.start(httpServer);
+socket.listen(httpServer);

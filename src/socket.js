@@ -49,21 +49,17 @@ const start = function(httpServer) {
       console.log("register: ", name);
 
       if (users[name]) {
-        return server.to(socket.id).emit('notify', 'You are already online!');
+        return server.to(socket.id).emit('notify', 'You are already active!');
       }
 
       // Add user
       users[name] = socket.id;
       console.log(users);
-      server.to(socket.id).emit('notify', `Registered ( ${name} )`);
+      server.to(socket.id).emit('notify', `Active ( ${name} )`);
       sendStatus(server);
     });
 
-
   });
-
-
-
 
 
 };

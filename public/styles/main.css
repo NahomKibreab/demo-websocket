@@ -1,4 +1,5 @@
 body {
+  font-family: Arial;
   background-color: #eee;
   margin: 1em;
 }
@@ -11,7 +12,7 @@ h4:empty:before {
   content: "\200b"; /* unicode zero width space character */
 }
 
-#to{
+#to {
   margin-top: 1em;
 }
 
@@ -27,7 +28,8 @@ li {
   background-color: #ddd;
 }
 
-li.private, li.send {
+li.private,
+li.send {
   color: green;
 }
 
@@ -46,4 +48,10 @@ li:hover {
 
 li:hover a {
   color: white;
+}
+
+.notify {
+  color: green;
+  font-family: monospace;
+  padding-bottom: 0.5em;
 }

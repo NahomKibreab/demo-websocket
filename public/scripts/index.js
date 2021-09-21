@@ -4,6 +4,9 @@
   $(function() {
     const socket = setupSocket();
 
+    $(window).unload(function() {
+      socket.disconnect();
+    });
   });
 
   // Create socket and add listeners

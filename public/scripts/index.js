@@ -4,9 +4,14 @@
   $(function() {
     const socket = setupSocket();
 
-    $("#register").on('click', function() {
+    $("#active").on('click', function() {
       const name = $("#name").val();
       register(socket, name);
+    });
+
+    $("#offline").on('click', function() {
+      const name = $("#name").val();
+      offline(socket);
     });
 
   });
@@ -42,6 +47,14 @@
     console.log("register", name);
     if (socket && name) {
       socket.emit('register', name);
+    }
+  };
+
+  // Send an offline message to the server
+  const offline = function(socket) {
+    console.log("offline");
+    if (socket) {
+      socket.emit('offline', null);
     }
   };
 

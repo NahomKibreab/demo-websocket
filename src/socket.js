@@ -44,20 +44,38 @@ const start = function(httpServer) {
       sendStatus();
     });
 
-    // Handle a "register" message
+    // Handle an "offline" message
     socket.on('register', name => {
       console.log("register: ", name);
 
       if (users[name]) {
-        return server.to(socket.id).emit('notify', 'You are already active!');
+        return server.to(socket.id).emit('notify', 'You are already registered!');
       }
 
       // Add user
       users[name] = socket.id;
       console.log(users);
-      server.to(socket.id).emit('notify', `Active ( ${name} )`);
+      server.to(socket.id).emit('notify', `Registered: ( ${name} )`);
       sendStatus(server);
     });
+
+    // Handle an "offine" message (only gets socket.id)
+    socket.on('offline', () => {
+      console.log("offine: ", socket.id);
+
+      // Find user
+      const user = getUser(socket.id);
+      if (!user) {
+        server.to(socket.id).emit('notify', `Not Registered`);
+        return;
+      }
+
+      delete users[user];
+      console.log(users);
+      server.to(socket.id).emit('notify', `Offline ( ${user} )`);
+      sendStatus(server);
+    });
+
 
   });
 
